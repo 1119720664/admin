@@ -16,37 +16,47 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
-	display: block;
-}
-body {
-	line-height: 1;
-}
-ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  display: block;
 }
 
-.el-loading{
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.el-loading {
   position: absolute;
   z-index: 2000;
-  background-color: rgba(255,255,255,.7);
+  background-color: rgba(255, 255, 255, .7);
   margin: 0;
   top: 0;
   right: 0;
@@ -55,7 +65,8 @@ table {
   -webkit-transition: opacity .3s;
   transition: opacity .3s;
 }
-.el-loading-spinner{
+
+.el-loading-spinner {
   top: 50%;
   margin-top: -21px;
   width: 100%;

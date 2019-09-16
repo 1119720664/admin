@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from './components/login/login'
 import Home from './components/home/home'
+import Index from "./components/index/index"
+import Member from "./components/member/member"
 
 Vue.use(Router)
 
@@ -15,7 +17,18 @@ let router = new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home
+      component: Home,
+      children: [
+        {
+          path: "",
+          component: Index
+        },
+        {
+          path: "/person/member",
+          name: "Member",
+          component: Member
+        },
+      ]
     }
   ]
 })

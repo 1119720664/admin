@@ -6,14 +6,12 @@
 
 <script>
   export default {
-    name: "footer"
+    name: "Footer"
   }
 </script>
 
 <style scoped>
   .footer {
-    position: relative;
-    z-index: 100;
     text-align: center;
     padding: 8px 20px;
     font-size: 12px;

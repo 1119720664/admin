@@ -13,7 +13,7 @@
       setEleToken() {
         if (localStorage.eleToken) {
           this.$store.dispatch("setAuth", true);
-          this.$store.dispatch("setUser", localStorage.user);
+          this.$store.dispatch("setUser", JSON.parse(localStorage.user));
         }
       }
     },
