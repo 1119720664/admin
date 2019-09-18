@@ -105,9 +105,9 @@
               const {msg, code, data} = res.data;
               if (code === 0 && msg) {
                 localStorage.setItem("eleToken", msg);
-                localStorage.setItem("user", JSON.stringify(this.loginUser));
+                localStorage.setItem("user", JSON.stringify({...this.loginUser, userId: data.userId}));
                 this.setAuth(true)
-                this.setUser(this.loginUser)
+                this.setUser({...this.loginUser, userId: data.userId})
                 this.$message({
                   message: "登录成功",
                   type: "success",
@@ -121,7 +121,11 @@
                 this.setAuth(false)
                 //this.getCode() /*刷新验证码*/
               }
-            });
+            }).catch(error => {
+              this.loginUser.username = ""
+              this.loginUser.password = ""
+              this.loginUser.NotForget = false
+            })
           } else {
             console.log("error submit!!");
             return false;
@@ -153,6 +157,7 @@
     height: 100%;
     background: #444;
     position: relative;
+    zoom: 1.001;
 
     .login-wrapper {
       position: absolute;

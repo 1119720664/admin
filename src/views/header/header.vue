@@ -30,9 +30,6 @@
     computed: {
       ...mapGetters(["user"])
     },
-    mounted(){
-      console.log(this.user)
-    },
     methods: {
       logout() {
         this.setAuth(false)

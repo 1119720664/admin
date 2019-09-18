@@ -108,9 +108,8 @@
             this.tableData = res.data.rows
             this.allTableData = res.data.rows
             this.setPaginations()
-            console.log(this.tableData)
           }
-        })
+        }).catch()
       },
       update() {
         this.dialog.show = false;

@@ -4,6 +4,7 @@
   </div>
 </template>
 <script>
+  import axios from "./common/js/http"
   export default {
     name: "App",
     created() {
@@ -14,6 +15,7 @@
         if (localStorage.eleToken) {
           this.$store.dispatch("setAuth", true);
           this.$store.dispatch("setUser", JSON.parse(localStorage.user));
+          this.$store.dispatch("setFresh", true);
         }
       }
     },
