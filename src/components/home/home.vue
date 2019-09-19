@@ -1,11 +1,11 @@
 <template>
   <div class="home">
     <m-header></m-header>
-    <m-menu></m-menu>
     <div class="rightContent">
       <router-view></router-view>
     </div>
-    <m-footer></m-footer>
+    <m-footer class="footer"></m-footer>
+    <m-menu></m-menu>
   </div>
 </template>
 
@@ -27,14 +27,22 @@
 <style scoped lang="scss">
   .home {
     width: 100%;
-    height: 100%
-  }
-  .rightContent{
-    position: relative;
-    top: 0;
-    left: 180px;
-    width: calc(100% - 240px);
-    height: calc(100% - 40px);
+    height: 100%;
     overflow: auto;
+  }
+
+  .rightContent {
+    position: relative;
+    top: 60px;
+    left: 240px;
+    width: calc(100% - 240px);
+    min-height: calc(100% - 140px);
+    margin-bottom: 40px
+  }
+
+  .footer {
+    position: relative;
+    z-index: 100;
+    top: 60px
   }
 </style>

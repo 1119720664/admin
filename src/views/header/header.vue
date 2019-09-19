@@ -2,13 +2,14 @@
   <div class="header">
     <el-header>
       <el-row>
-        <el-col :span="20">
+        <el-col :span="18">
           <h3 class="logo">芯海视界</h3>
         </el-col>
-        <el-col :span="4">
+        <el-col :span="6">
           <div class="userInfo">
             <el-avatar :size="'large'" :src="circleIcon" class="icon-avatar"></el-avatar>
-            <span class="username">欢迎:{{user}}</span>
+            <span class="username">欢迎:&nbsp;&nbsp;{{user.username}}</span>
+            <span class="logout" @click="logout">退出登录</span>
           </div>
         </el-col>
       </el-row>
@@ -17,7 +18,7 @@
 </template>
 
 <script>
-  import { mapGetters } from "vuex"
+  import { mapGetters, mapActions } from "vuex"
 
   export default {
     name: "MHeader",
@@ -28,6 +29,14 @@
     },
     computed: {
       ...mapGetters(["user"])
+    },
+    methods: {
+      logout() {
+        this.setAuth(false)
+        localStorage.removeItem("eleToken")
+        this.$router.push("/login")
+      },
+      ...mapActions(["setAuth"])
     }
   }
 </script>
@@ -63,11 +72,15 @@
         margin-top: 10px
       }
 
-      .username {
+      .username, .logout {
         color: #fff;
-        font-size: 16px;
+        font-size: 14px;
         vertical-align: top;
         padding-left: 20px;
+      }
+
+      .logout {
+        cursor: pointer;
       }
     }
   }
