@@ -8,7 +8,7 @@
           </el-button>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" size="small" icon="view" @click="handleDeleteMember">
+          <el-button type="danger" size="small" icon="view" @click="handleDeleteMember">
             删除
           </el-button>
         </el-form-item>
@@ -77,6 +77,7 @@
         tableData: [],
         selectedRow: [],
         allTableData: [],
+        pageIndex: 1,
         formData: {
           userName: "",
           fullName: "",
@@ -102,8 +103,7 @@
     },
     methods: {
       getTableList() {
-        axios.post("/api/api/hr/person/list/v1").then(res => {
-          console.log(res)
+        axios.post("/api/api/hr/person/list/v1", {searchValue: ""}).then(res => {
           if (res.status === 200) {
             this.tableData = res.data.rows
             this.allTableData = res.data.rows
@@ -160,6 +160,7 @@
           title: "修改用户信息",
           option: "edit"
         }
+        console.log(index)
         this.formData = {
           userName: row.userName,
           fullName: row.fullName,
@@ -172,6 +173,8 @@
       handleCurrentChange(page) {
         /*获取当前页*/
         let index = this.paginations.page_size * (page - 1)
+        console.log(index)
+        this.pageIndex = index
         /*获取数据的总数*/
         let nums = this.paginations.page_size * page
         let tables = [];
@@ -184,15 +187,15 @@
       },
       setPaginations() {
         this.paginations.total = this.allTableData.length;
-        this.paginations.page_index = 1;
+        this.paginations.page_index = this.pageIndex;
         this.paginations.page_size = 3;
         /*设置默认的分页数据*/
         this.tableData = this.allTableData.filter((item, index) => {
-          return index < this.paginations.page_size
+          return index + this.paginations.page_size * (this.paginations.page_index - 1) <
+            this.paginations.page_size * this.paginations.page_index
         })
       },
       indexMethod(index) {
-        console.log(index)
         return (index + 1) + this.paginations.page_size * (this.paginations.page_index - 1)
       }
     },
@@ -213,6 +216,10 @@
         text-align: center;
         margin-top: 30px;
       }
+    }
+
+    .el-form-item {
+      margin-bottom: 0 !important;
     }
   }
 </style>
