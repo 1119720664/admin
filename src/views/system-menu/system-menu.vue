@@ -90,7 +90,7 @@
         dialog: {
           show: false,
           title: "添加用户信息",
-          option: "add"
+          option: ""
         },
         paginations: {
           page_index: 1,  /*当前位于那页*/
@@ -138,6 +138,7 @@
         })
       },
       handleDeleteMember() {  /*批量删除用户信息*/
+        this.dialog.option = "delete"
         axios({
           method: "post",
           url: "/api/api/hr/person/del/v1",
@@ -160,7 +161,6 @@
           title: "修改用户信息",
           option: "edit"
         }
-        console.log(index)
         this.formData = {
           userName: row.userName,
           fullName: row.fullName,
@@ -173,8 +173,7 @@
       handleCurrentChange(page) {
         /*获取当前页*/
         let index = this.paginations.page_size * (page - 1)
-        console.log(index)
-        this.pageIndex = index
+        this.pageIndex = page
         /*获取数据的总数*/
         let nums = this.paginations.page_size * page
         let tables = [];
@@ -184,16 +183,21 @@
           }
           this.tableData = tables
         }
+        console.log(this.tableData)
       },
       setPaginations() {
         this.paginations.total = this.allTableData.length;
         this.paginations.page_index = this.pageIndex;
         this.paginations.page_size = 3;
-        /*设置默认的分页数据*/
-        this.tableData = this.allTableData.filter((item, index) => {
-          return index + this.paginations.page_size * (this.paginations.page_index - 1) <
-            this.paginations.page_size * this.paginations.page_index
-        })
+        if (this.dialog.option === "add" || this.dialog.option === "edit") {  /*编辑或者添加的时候，调转到对应页面*/
+          console.log(this.paginations.page_index)
+          this.handleCurrentChange(this.paginations.page_index)
+        }else {
+          /*设置默认的分页数据*/
+          this.tableData = this.allTableData.filter((item, index) => {
+            return index < this.paginations.page_size
+          })
+        }
       },
       indexMethod(index) {
         return (index + 1) + this.paginations.page_size * (this.paginations.page_index - 1)

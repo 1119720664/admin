@@ -37,7 +37,6 @@
 <script>
   import { mapActions, mapGetters } from "vuex"
   import axios from "../../common/js/http"
-  import menu from "../../common/js/async-router"
 
   export default {
     name: 'Menu',
@@ -46,8 +45,7 @@
     },
     data() {
       return {
-        asyncRouter: [],
-        isCollapse: true
+        asyncRouter: []
       }
     },
     computed: {

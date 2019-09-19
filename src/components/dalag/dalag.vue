@@ -64,6 +64,14 @@
           callback();
         }
       };
+      var validateWorkNum = (rule, value, callback) => {
+        var workNum = /^\d+$/;
+        if (!workNum.test(value)) {
+          callback(new Error('职工工号必须是数字'));
+        } else {
+          callback();
+        }
+      };
       return {
         form_rules: {
           userName: [
@@ -73,7 +81,8 @@
             {required: true, message: "昵称不能为空", trigger: "blur"}
           ],
           workNum: [
-            {required: true, message: "职工工号不能为空！", trigger: "blur"}
+            {required: true, message: "职工工号不能为空！", trigger: "blur"},
+            {validator: validateWorkNum, trigger: 'blur'}
           ],
           phoneNumber: [
             {required: true, message: "手机号不能为空！", trigger: "blur"},
