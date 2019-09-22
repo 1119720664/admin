@@ -29,6 +29,7 @@
   import identifyCode from "../../views/identifyCode/identifyCode"
   import qs from 'qs'
   import { mapGetters, mapActions } from "vuex"
+  import header from "../../views/header/header";
 
   export default {
     name: "login",
@@ -85,7 +86,7 @@
     },
     methods: {
       getCode() {
-        axios.get("/api/system/login/getVCode").then(res => {
+        axios.get(`${process.env.VUE_APP_BASE_URL}/system/login/getVCode`).then(res => {
           if (res.data.code === 0) {
             this.httpCode = res.data.msg
           }
@@ -97,10 +98,16 @@
       submitForm() {
         this.$refs.loginForm.validate(valid => {
           if (valid) {
-            axios.post("/api/api/hr/Account/UserVerify/v1", qs.stringify({
-              username: this.loginUser.username,
-              password: this.loginUser.password
-            })).then(res => {
+            axios({
+                url: `${process.env.VUE_APP_BASE_URL}/api/hr/Account/UserVerify/v1`,
+                method: "POST",
+                data: {
+                  username: this.loginUser.username,
+                  password: this.loginUser.password
+                },
+                headers: {'Content-Type': 'application/json'}
+              }
+            ).then(res => {
               // 登录成功 页面跳转
               const {msg, code, data} = res.data;
               if (code === 0 && msg) {

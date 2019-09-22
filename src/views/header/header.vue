@@ -19,12 +19,13 @@
 
 <script>
   import { mapGetters, mapActions } from "vuex"
+  import axios from "../../common/js/http"
 
   export default {
     name: "MHeader",
     data() {
       return {
-        circleIcon: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
+        circleIcon: require("../../common/images/person.png")
       }
     },
     computed: {
@@ -32,9 +33,14 @@
     },
     methods: {
       logout() {
-        this.setAuth(false)
-        localStorage.removeItem("eleToken")
-        this.$router.push("/login")
+        console.log(this.user.eleToken)
+        axios.get(`${process.env.VUE_APP_BASE_URL}/api/loginOut/v1`, this.user.eleToken).then(res => {
+          if (res.data.code === 0) {
+            this.setAuth(false)
+            localStorage.removeItem("eleToken")
+            this.$router.push("/login")
+          }
+        })
       },
       ...mapActions(["setAuth"])
     }

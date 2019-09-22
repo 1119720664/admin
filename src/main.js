@@ -7,7 +7,7 @@ import "./common/scss/font-awesome.scss"
 import "./plugins/element"
 
 Vue.config.productionTip = false
-
+console.log(123,process.env.VUE_APP_BASE_URL)
 
 new Vue({
   router,

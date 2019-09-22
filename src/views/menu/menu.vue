@@ -54,7 +54,7 @@
     methods: {
       getRouter() {
         let {userId} = this.user
-        axios.post("/api/api/hr/Account/Menu/ListByUserId/v1", {userId}).then(res => {
+        axios.post(`${process.env.VUE_APP_BASE_URL}/api/hr/Account/Menu/ListByUserId/v1`, {userId}).then(res => {
           let NavMenu = res.data
           this.asyncRouter = this.routerMatch(NavMenu)
         })

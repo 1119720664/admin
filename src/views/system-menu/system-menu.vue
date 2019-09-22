@@ -103,7 +103,7 @@
     },
     methods: {
       getTableList() {
-        axios.post("/api/api/hr/person/list/v1", {searchValue: ""}).then(res => {
+        axios.post(`${process.env.VUE_APP_BASE_URL}/api/hr/person/list/v1`, {searchValue: ""}).then(res => {
           if (res.status === 200) {
             this.tableData = res.data.rows
             this.allTableData = res.data.rows
@@ -141,7 +141,7 @@
         this.dialog.option = "delete"
         axios({
           method: "post",
-          url: "/api/api/hr/person/del/v1",
+          url: `${process.env.VUE_APP_BASE_URL}/api/hr/person/del/v1`,
           data: {userIds: this.selectedRow.toString()}
         })
           .then(res => {
@@ -189,10 +189,10 @@
         this.paginations.total = this.allTableData.length;
         this.paginations.page_index = this.pageIndex;
         this.paginations.page_size = 3;
-        if (this.dialog.option === "add" || this.dialog.option === "edit") {  /*编辑或者添加的时候，调转到对应页面*/
+        if (this.dialog.option === "add" || this.dialog.option === "edit" || this.dialog.option === "delete") {  /*编辑或者添加的时候，调转到对应页面*/
           console.log(this.paginations.page_index)
           this.handleCurrentChange(this.paginations.page_index)
-        }else {
+        } else {
           /*设置默认的分页数据*/
           this.tableData = this.allTableData.filter((item, index) => {
             return index < this.paginations.page_size

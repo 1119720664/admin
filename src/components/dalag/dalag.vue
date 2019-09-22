@@ -97,7 +97,7 @@
           if (valid) {
             const url = this.dialog.option === "add" ? "api/hr/person/add/v1" : `api/hr/person/edit/v1`
             const message = this.dialog.option === "add" ? "添加成功" : `修改成功`
-            axios.post(`/api/${url}`, this.formData).then(res => {
+            axios.post(`${process.env.VUE_APP_BASE_URL}/${url}`, this.formData).then(res => {
               if (res.data.code === 0) {
                 this.$message({
                   message: res.data.msg,
